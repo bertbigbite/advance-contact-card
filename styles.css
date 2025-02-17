@@ -7,7 +7,7 @@
   --button-bg: #fff;
   --button-text: #000;
   --button-hover-bg: #0056b3;
-  --button-hover-text: #fff;
+  --button-hover-text:  rgb(255, 96, 96);
   --header-footer-height: 60px;
   --nav-text-color:var(--secondary-text-color);
 }
@@ -19,7 +19,7 @@
   --secondary-text-color: #000;
   --accent-color: rgb(255, 96, 96);
   --button-bg: #000;
-  --button-text: #fff;
+  --button-text: #000000;
   --button-hover-bg: #8a60d1;
   --button-hover-text: #fff;
   --nav-text-color:var(--secondary-text-color);
@@ -43,21 +43,80 @@ body {
   font-family: Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  transition: background-color 0.7s, color 0.7s;
+  transition: background 0.7s, color 0.7s;
 }
 
-/* Header and Footer */
-header,
-footer {
+/* Header */
+header {
+  display:flex;
+  justify-content:end;
+  align-items:center;
   background-color: var(--accent-color, #cccccc); /* Fallback */
   color: var(--bg-color, #ffffff); /* Fallback */
-  height: var(--header-footer-height, 60px); /* Fallback */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0.5rem;
+  min-height: calc(var(--header-footer-height) * 1.5); /* The calc() function allows calculations to be made within the css */
+  padding: 1rem;
 }
+
+/* Header content styles */
+
+/* Container to hold the toggle switch */
+.toggle-container {
+  position: relative;
+  width: 60px;
+  height: 30px;
+}
+
+/* Hide the default checkbox input */
+.toggle-checkbox {
+  display: none;
+}
+
+/* Style the switch background */
+.toggle-label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #ccc; /* Default light mode background */
+  border-radius: 30px; /* Rounded edges for a pill shape */
+  cursor: pointer;
+  position: relative;
+  transition: background 0.4s ease; /* Smooth transition when toggled */
+}
+
+/* Style the switch knob (slider) */
+.toggle-label::after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  content: "\263E"; /* Required for a pseudo-element */
+  font-size:18px;
+  color: var(--button-text);
+  font-weight:bold;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  width: 22px;
+  height: 22px;
+  background: rgb(255, 96, 96); /* White color for the knob */
+  position: absolute;
+  top: 4px;
+  left: 4px; /* Start position (left side) */
+  border-radius: 50%; /* Make it a circle */
+  transition: transform 0.4s ease, background 0.4s ease, content 1s ease; /* Animate movement */
+}
+
+/* Change the background when the checkbox is checked */
+.toggle-checkbox:checked + .toggle-label {
+  /* This is the adjacent sibling combinator (+), which selects the .toggle-label element immediately after .toggle-checkbox. */
+  background: #000000; /* Dark mode background */
+}
+
+/* Move the knob to the right when checked */
+.toggle-checkbox:checked + .toggle-label::after {
+  content: "\263C"; /* Required for a pseudo-element */
+  transform: translateX(30px) rotate(90deg); /* Moves the knob to the right */
+  background: #007bff; /* Yellow color (like a sun) */
+  color: var(--button-text);
+}
+
 
 /* Main Section */
 main {
@@ -103,6 +162,9 @@ button:hover {
 footer {
   display: flex;
   justify-content: space-between;
+  background-color: var(--accent-color, #cccccc); /* Fallback */
+  color: var(--bg-color, #ffffff); /* Fallback */
+  height: var(--header-footer-height, 60px); /* Fallback */
   gap: 40px;
   align-items: flex-end;
   bottom: 0;
@@ -155,7 +217,7 @@ footer {
 
 .footer_contact nav a:hover,
 .footer_contact div a:hover {
-  color: #e56753; /* Light red for hover effect */
+  color: var(--button-hover-text); /* Light red for hover effect */
   cursor: pointer;
 }
 
